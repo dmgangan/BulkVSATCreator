@@ -17,16 +17,16 @@ class NbiFunction(object):
         self.nbi_session.auth = HTTPBasicAuth(self.nbi_user, self.nbi_password)
         self.client = Client('cpeService.xml',transport=Transport(session=self.nbi_session))
 
-    def crt(self, cpeq):
+    def crt(self, cpes):
         try:
-            response = self.client.service.createCPE(**cpeq)
+            response = self.client.service.createCPE(**cpes)
         except exceptions.Fault as error:
             print(ValueError(error.message))
 
 
-    def addRoute(self, cpe_rtq):
+    def addRoute(self, cpe_rta):
         try:
-            response = self.client.service.cpeAddStaticRouteIPv4(**cpe_rtq)
+            response = self.client.service.cpeAddStaticRouteIPv4(**cpe_rta)
         except exceptions.Fault as error:
             print(ValueError(error.message))
 
@@ -58,10 +58,10 @@ def main():
 
     with open('vsat.json', 'r') as f:
         cpe_str = f.read()
-    cpes = ast.literal_eval(cpe_str)
+    cpess = ast.literal_eval(cpe_str)
     vsat_obj = NbiFunction()
     #vsat_obj.addRoute(cpe_rt)
-    vsat_obj.crt(cpes)
+    vsat_obj.crt(cpess)
 
 if __name__ == '__main__':
     main()
