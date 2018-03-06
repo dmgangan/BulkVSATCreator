@@ -1,0 +1,1812 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="com.gilat.ngnms.server.services.ws.cfg.face" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CPEService" targetNamespace="com.gilat.ngnms.server.services.ws.cfg.face">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com.gilat.ngnms.server.ws.faults.dto" targetNamespace="urn:com.gilat.ngnms.server.ws.faults.dto" version="1.0">
+
+  <xs:element name="NgnmsBusinessFaultDetails" type="tns:NgnmsBusinessFaultDetails"/>
+
+  <xs:complexType name="NgnmsBusinessFaultDetails">
+    <xs:sequence>
+      <xs:element name="businessFaultTypeCode" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com.gilat.ngnms.server.ws.dto.cfg" xmlns:ns1="com.gilat.ngnms.server.services.ws.cfg.face" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:com.gilat.ngnms.server.ws.dto.cfg">
+  <xs:import namespace="com.gilat.ngnms.server.services.ws.cfg.face"/>
+  <xs:element name="AdvancedSelfTestResults" type="tns:AdvancedSelfTestResults"/>
+  <xs:element name="Backhauling" type="tns:Backhauling"/>
+  <xs:element name="CPE" type="tns:CPE"/>
+  <xs:element name="CPEId" type="tns:CPEId"/>
+  <xs:element name="CPEsBulk" type="tns:CPEsBulk"/>
+  <xs:element name="ContinuousTelemetry" type="tns:ContinuousTelemetry"/>
+  <xs:element name="CustomerInformation" type="tns:CustomerInformation"/>
+  <xs:element name="GTP" type="tns:GTP"/>
+  <xs:element name="IPv4" type="tns:IPv4"/>
+  <xs:element name="IPv4DynamicRoute" type="tns:IPv4DynamicRoute"/>
+  <xs:element name="IPv4StaticRoute" type="tns:IPv4StaticRoute"/>
+  <xs:element name="IPv6" type="tns:IPv6"/>
+  <xs:element name="IPv6DynamicRoute" type="tns:IPv6DynamicRoute"/>
+  <xs:element name="IPv6StaticRoute" type="tns:IPv6StaticRoute"/>
+  <xs:element name="MGMigration" type="tns:MGMigration"/>
+  <xs:element name="MobilityParams" type="tns:MobilityParams"/>
+  <xs:element name="PartNumber" type="tns:PartNumber"/>
+  <xs:element name="PhysicalPort" type="tns:PhysicalPort"/>
+  <xs:element name="RFAuditResult" type="tns:RFAuditResult"/>
+  <xs:element name="RtnScpcMode" type="tns:RtnScpcMode"/>
+  <xs:element name="VR" type="tns:VR"/>
+  <xs:complexType name="CPEId">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="managedGroupId" type="xs:string"/>
+      <xs:element minOccurs="0" name="subscriberId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContinuousTelemetry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="tns:CPEId"/>
+      <xs:element minOccurs="0" name="linkStatus" type="ns1:neStatus"/>
+      <xs:element minOccurs="0" name="transmissionMode" type="ns1:vsatTransmissionMode"/>
+      <xs:element minOccurs="0" name="maximumChannelDataRate" type="xs:long"/>
+      <xs:element minOccurs="0" name="minimumChannelDataRate" type="xs:long"/>
+      <xs:element minOccurs="0" name="startFrequency" type="xs:long"/>
+      <xs:element minOccurs="0" name="stopFrequency" type="xs:long"/>
+      <xs:element minOccurs="0" name="centerFrequency" type="xs:long"/>
+      <xs:element minOccurs="0" name="bandwidth" type="xs:long"/>
+      <xs:element minOccurs="0" name="symbolRate" type="xs:long"/>
+      <xs:element minOccurs="0" name="highestMODCOD" type="xs:string"/>
+      <xs:element minOccurs="0" name="lowestMODCOD" type="xs:string"/>
+      <xs:element minOccurs="0" name="expectedMaximumEsNo" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Backhauling">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="cpeSideIPAddressSource" type="xs:string"/>
+      <xs:element minOccurs="0" name="cpeSideIPAddressValue" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IPv6StaticRoute">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="network" type="xs:string"/>
+      <xs:element minOccurs="0" name="prefixLength" type="xs:string"/>
+      <xs:element minOccurs="0" name="nextHop" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipV6Interface" type="xs:string"/>
+      <xs:element minOccurs="0" name="redistribute" type="xs:string"/>
+      <xs:element minOccurs="0" name="distributedMetric" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartNumber">
+    <xs:sequence>
+      <xs:element name="factoryPartNumber" type="xs:long"/>
+      <xs:element name="otaPartNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="creationDate" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CPE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="tns:CPEId"/>
+      <xs:element minOccurs="0" name="getMacFromCPE" type="xs:string"/>
+      <xs:element minOccurs="0" name="macAddress" type="xs:string"/>
+      <xs:element minOccurs="0" name="clusterCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="platform" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipStack" type="xs:string"/>
+      <xs:element minOccurs="0" name="subscriberPublicIPv6Address" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipv6ConnectivityMode" type="xs:string"/>
+      <xs:element minOccurs="0" name="slaName" type="xs:string"/>
+      <xs:element minOccurs="0" name="rtnClassifierName" type="xs:string"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element minOccurs="0" name="authorization" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataAuthorization" type="xs:string"/>
+      <xs:element minOccurs="0" name="locationCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="subscriberPublicIpAddress" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipAddressing" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipv4Prefix" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipv4Dhcp" type="xs:string"/>
+      <xs:element minOccurs="0" name="provStatus" type="xs:string"/>
+      <xs:element minOccurs="0" name="operationalState" type="xs:string"/>
+      <xs:element minOccurs="0" name="autoGenerateResetQuota" type="xs:string"/>
+      <xs:element minOccurs="0" name="resetQuotaDay" type="xs:string"/>
+      <xs:element minOccurs="0" name="resetQuotaTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="creationDate" type="xs:long"/>
+      <xs:element minOccurs="0" name="lastModification" type="xs:long"/>
+      <xs:element minOccurs="0" name="serviceActivationRFAudit" type="tns:RFAuditResult"/>
+      <xs:element minOccurs="0" name="otherRFAudit" type="tns:RFAuditResult"/>
+      <xs:element minOccurs="0" name="nicMode" type="xs:string"/>
+      <xs:element minOccurs="0" name="vrs">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:VR"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="physPorts">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:PhysicalPort"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="rfCertificationMode" type="xs:string"/>
+      <xs:element minOccurs="0" name="minimumTxCoPolReceptionThreashold" type="xs:string"/>
+      <xs:element minOccurs="0" name="minimumTxCoPolCn" type="xs:string"/>
+      <xs:element minOccurs="0" name="coCrossPolDelta" type="xs:string"/>
+      <xs:element minOccurs="0" name="minimumCpeRxEsNo" type="xs:string"/>
+      <xs:element minOccurs="0" name="rttMeasurement" type="xs:string"/>
+      <xs:element minOccurs="0" name="rtnScpcMode" type="tns:RtnScpcMode"/>
+      <xs:element minOccurs="0" name="fwdTpLimit" type="xs:string"/>
+      <xs:element minOccurs="0" name="scpcTpLimit" type="xs:string"/>
+      <xs:element minOccurs="0" name="aes256Encryption" type="xs:string"/>
+      <xs:element minOccurs="0" name="httpAcceleration" type="xs:string"/>
+      <xs:element minOccurs="0" name="mobility" type="xs:string"/>
+      <xs:element minOccurs="0" name="longitude" type="xs:float"/>
+      <xs:element minOccurs="0" name="latitude" type="xs:float"/>
+      <xs:element minOccurs="0" name="mobilityParams" type="tns:MobilityParams"/>
+      <xs:element minOccurs="0" name="greAcceleration" type="xs:string"/>
+      <xs:element minOccurs="0" name="mgMigration" type="tns:MGMigration"/>
+      <xs:element minOccurs="0" name="gtpAcceleration" type="xs:string"/>
+      <xs:element minOccurs="0" name="spspLicense" type="xs:string"/>
+      <xs:element minOccurs="0" name="mobilityType" type="xs:string"/>
+      <xs:element minOccurs="0" name="coordinatesSource" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RFAuditResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="status" type="xs:string"/>
+      <xs:element minOccurs="0" name="coPol" type="xs:int"/>
+      <xs:element minOccurs="0" name="crossPol" type="xs:int"/>
+      <xs:element minOccurs="0" name="delta" type="xs:int"/>
+      <xs:element minOccurs="0" name="obEsNo" type="xs:int"/>
+      <xs:element minOccurs="0" name="ibThreshold" type="xs:int"/>
+      <xs:element minOccurs="0" name="obThreshold" type="xs:int"/>
+      <xs:element minOccurs="0" name="startTime" type="xs:long"/>
+      <xs:element minOccurs="0" name="endTime" type="xs:long"/>
+      <xs:element minOccurs="0" name="attenuatorP1dB" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VR">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="vlanId" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipv4" type="tns:IPv4"/>
+      <xs:element minOccurs="0" name="ipv6" type="tns:IPv6"/>
+      <xs:element minOccurs="0" name="ipv4DynamicRoute" type="tns:IPv4DynamicRoute"/>
+      <xs:element minOccurs="0" name="ipv6DynamicRoute" type="tns:IPv6DynamicRoute"/>
+      <xs:element minOccurs="0" name="enableBackhauling" type="xs:string"/>
+      <xs:element minOccurs="0" name="backhaulings">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:Backhauling"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="inPorts">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="portId" type="xs:short"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="enableGtp" type="xs:string"/>
+      <xs:element minOccurs="0" name="gtp" type="tns:GTP"/>
+      <xs:element minOccurs="0" name="vrrpMode" type="xs:string"/>
+      <xs:element minOccurs="0" name="groupID" type="xs:string"/>
+      <xs:element minOccurs="0" name="groupIPAddress" type="xs:string"/>
+      <xs:element minOccurs="0" name="priority" type="xs:string"/>
+      <xs:element minOccurs="0" name="advertisementInterval" type="xs:string"/>
+      <xs:element minOccurs="0" name="preempt" type="xs:string"/>
+      <xs:element minOccurs="0" name="greAcceleration" type="xs:string"/>
+      <xs:element minOccurs="0" name="transparency" type="xs:string"/>
+      <xs:element minOccurs="0" name="reTagging" type="xs:string"/>
+      <xs:element minOccurs="0" name="newVlanID" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IPv4">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="subscriberPublicIpAddress" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipv4Prefix" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipv4Dhcp" type="xs:string"/>
+      <xs:element minOccurs="0" name="natPrivateAddress" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IPv6">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="subscriberPublicIPv6Address" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IPv4DynamicRoute">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="satelliteRIPv2" type="xs:string"/>
+      <xs:element minOccurs="0" name="lanRIPv2" type="xs:string"/>
+      <xs:element minOccurs="0" name="advertiseDGtoLAN" type="xs:string"/>
+      <xs:element minOccurs="0" name="dgRIPv2HopCount" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IPv6DynamicRoute">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="satelliteRIPng" type="xs:string"/>
+      <xs:element minOccurs="0" name="lanRIPng" type="xs:string"/>
+      <xs:element minOccurs="0" name="advertiseDGtoLAN" type="xs:string"/>
+      <xs:element minOccurs="0" name="dgRIPngHopCount" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GTP">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="inactivityTimeOut" type="xs:string"/>
+      <xs:element minOccurs="0" name="vsatMss" type="xs:string"/>
+      <xs:element minOccurs="0" name="dpsMss" type="xs:string"/>
+      <xs:element minOccurs="0" name="tosDscpBitsManipulation" type="xs:string"/>
+      <xs:element minOccurs="0" name="voIPSupport" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PhysicalPort">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="portStatus" type="xs:string"/>
+      <xs:element minOccurs="0" name="nicMode" type="xs:string"/>
+      <xs:element minOccurs="0" name="supportedVRs">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="vlanID" type="xs:short"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RtnScpcMode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="modeRequest" type="xs:string"/>
+      <xs:element minOccurs="0" name="symbolRate" type="xs:string"/>
+      <xs:element minOccurs="0" name="highestMODCOD" type="xs:string"/>
+      <xs:element minOccurs="0" name="lowestMODCOD" type="xs:string"/>
+      <xs:element minOccurs="0" name="degradedLinkPolicy" type="xs:string"/>
+      <xs:element minOccurs="0" name="channelFrequency" type="xs:string"/>
+      <xs:element minOccurs="0" name="uplinkCenterFrequency" type="xs:string"/>
+      <xs:element minOccurs="0" name="allowAlternativeFrequency" type="xs:string"/>
+      <xs:element minOccurs="0" name="frameSize" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MobilityParams">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="a" type="xs:int"/>
+      <xs:element minOccurs="0" name="w" type="xs:int"/>
+      <xs:element minOccurs="0" name="rfClusterLockTimeout" type="xs:int"/>
+      <xs:element minOccurs="0" name="obSwappingTimer" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MGMigration">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="peerMGID" type="xs:int"/>
+      <xs:element minOccurs="0" name="peerTerminalID" type="xs:int"/>
+      <xs:element minOccurs="0" name="state" type="ns1:mgMigrationState"/>
+      <xs:element minOccurs="0" name="role" type="ns1:mgMigrationRole"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CPEsBulk">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="totalNumber" type="xs:int"/>
+      <xs:element minOccurs="0" name="lastIndex" type="xs:int"/>
+      <xs:element name="hasMore" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="cpes">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:CPE"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CustomerInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="tns:CPEId"/>
+      <xs:element minOccurs="0" name="cpeDescription" type="xs:string"/>
+      <xs:element minOccurs="0" name="companyName" type="xs:string"/>
+      <xs:element minOccurs="0" name="companyGroupDivision" type="xs:string"/>
+      <xs:element minOccurs="0" name="addressStreet" type="xs:string"/>
+      <xs:element minOccurs="0" name="addressCity" type="xs:string"/>
+      <xs:element minOccurs="0" name="addressState" type="xs:string"/>
+      <xs:element minOccurs="0" name="addressCountry" type="xs:string"/>
+      <xs:element minOccurs="0" name="addressPostalCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="contactFirstName" type="xs:string"/>
+      <xs:element minOccurs="0" name="contactLastName" type="xs:string"/>
+      <xs:element minOccurs="0" name="contactPhone1" type="xs:string"/>
+      <xs:element minOccurs="0" name="contactPhone2" type="xs:string"/>
+      <xs:element minOccurs="0" name="contactEmail" type="xs:string"/>
+      <xs:element minOccurs="0" name="freeText1" type="xs:string"/>
+      <xs:element minOccurs="0" name="freeText2" type="xs:string"/>
+      <xs:element minOccurs="0" name="freeText3" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IPv4StaticRoute">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="network" type="xs:string"/>
+      <xs:element minOccurs="0" name="subnetMask" type="xs:string"/>
+      <xs:element minOccurs="0" name="nextHop" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipV4Interface" type="xs:string"/>
+      <xs:element minOccurs="0" name="redistribute" type="xs:string"/>
+      <xs:element minOccurs="0" name="distributedMetric" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AdvancedSelfTestResults">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="tns:CPEId"/>
+      <xs:element minOccurs="0" name="timeAndDate" type="xs:string"/>
+      <xs:element name="testTrigger" type="xs:int"/>
+      <xs:element name="testDuration" type="xs:int"/>
+      <xs:element name="dnsTestStatus" type="xs:int"/>
+      <xs:element minOccurs="0" name="dnsDomainName" type="xs:string"/>
+      <xs:element minOccurs="0" name="dnsResolvedIpAddress" type="xs:string"/>
+      <xs:element name="dnsTime2ResolvedUrl" type="xs:int"/>
+      <xs:element name="ipConnectivityTestStatus" type="xs:int"/>
+      <xs:element name="packetSize1" type="xs:int"/>
+      <xs:element name="minRoundTripDelay1" type="xs:int"/>
+      <xs:element name="maxRoundTripDelay1" type="xs:int"/>
+      <xs:element name="avgRoundTripDelay1" type="xs:int"/>
+      <xs:element name="pingSuccessPercent1" type="xs:int"/>
+      <xs:element name="packetSize2" type="xs:int"/>
+      <xs:element name="minRoundTripDelay2" type="xs:int"/>
+      <xs:element name="maxRoundTripDelay2" type="xs:int"/>
+      <xs:element name="avgRoundTripDelay2" type="xs:int"/>
+      <xs:element name="pingSuccessPercent2" type="xs:int"/>
+      <xs:element name="packetSize3" type="xs:int"/>
+      <xs:element name="minRoundTripDelay3" type="xs:int"/>
+      <xs:element name="maxRoundTripDelay3" type="xs:int"/>
+      <xs:element name="avgRoundTripDelay3" type="xs:int"/>
+      <xs:element name="pingSuccessPercent3" type="xs:int"/>
+      <xs:element name="httpTestStatus" type="xs:int"/>
+      <xs:element name="webPageDownloadThroughput" type="xs:int"/>
+      <xs:element name="webPageDownloadDuration" type="xs:int"/>
+      <xs:element name="ftpTestStatus" type="xs:int"/>
+      <xs:element name="ftpDownloadThroughput" type="xs:int"/>
+      <xs:element name="fwdExpectedBitrate" type="xs:int"/>
+      <xs:element name="ftpUploadThroughput" type="xs:int"/>
+      <xs:element name="rtnExpectedBitrate" type="xs:int"/>
+      <xs:element name="fwdBbRetransmissions" type="xs:int"/>
+      <xs:element name="fwdBbNumberedPer" type="xs:float"/>
+      <xs:element name="rtnBbRetransmissions" type="xs:int"/>
+      <xs:element name="rtnBbNumberedPer" type="xs:float"/>
+      <xs:element minOccurs="0" name="modcod" type="xs:string"/>
+      <xs:element name="calculatedL1Bitrate" type="xs:int"/>
+      <xs:element name="numberOfReceivedFrames" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="SelfTestStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="InProgress"/>
+      <xs:enumeration value="ReadyForRun"/>
+      <xs:enumeration value="NotReady"/>
+      <xs:enumeration value="SetlfTestInitiated"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="com.gilat.ngnms.server.services.ws.cfg.face" xmlns:ns1="urn:com.gilat.ngnms.server.ws.dto.cfg" xmlns:ns0="urn:com.gilat.ngnms.server.ws.faults.dto" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="com.gilat.ngnms.server.services.ws.cfg.face">
+  <xs:import namespace="urn:com.gilat.ngnms.server.ws.dto.cfg"/>
+  <xs:element name="changeCPEFwdTpLicense" type="tns:changeCPEFwdTpLicense"/>
+  <xs:element name="changeCPEFwdTpLicenseResponse" type="tns:changeCPEFwdTpLicenseResponse"/>
+  <xs:element name="changeCPEScpcTpLicense" type="tns:changeCPEScpcTpLicense"/>
+  <xs:element name="changeCPEScpcTpLicenseResponse" type="tns:changeCPEScpcTpLicenseResponse"/>
+  <xs:element name="cpeAddBHtoVR" type="tns:cpeAddBHtoVR"/>
+  <xs:element name="cpeAddBHtoVRResponse" type="tns:cpeAddBHtoVRResponse"/>
+  <xs:element name="cpeAddStaticRouteIPv4" type="tns:cpeAddStaticRouteIPv4"/>
+  <xs:element name="cpeAddStaticRouteIPv4Response" type="tns:cpeAddStaticRouteIPv4Response"/>
+  <xs:element name="cpeAddStaticRouteIPv6" type="tns:cpeAddStaticRouteIPv6"/>
+  <xs:element name="cpeAddStaticRouteIPv6Response" type="tns:cpeAddStaticRouteIPv6Response"/>
+  <xs:element name="cpeAddVR" type="tns:cpeAddVR"/>
+  <xs:element name="cpeAddVRResponse" type="tns:cpeAddVRResponse"/>
+  <xs:element name="cpeDeleteBHfromVR" type="tns:cpeDeleteBHfromVR"/>
+  <xs:element name="cpeDeleteBHfromVRResponse" type="tns:cpeDeleteBHfromVRResponse"/>
+  <xs:element name="cpeDeleteStaticRouteIPv4" type="tns:cpeDeleteStaticRouteIPv4"/>
+  <xs:element name="cpeDeleteStaticRouteIPv4Response" type="tns:cpeDeleteStaticRouteIPv4Response"/>
+  <xs:element name="cpeDeleteStaticRouteIPv6" type="tns:cpeDeleteStaticRouteIPv6"/>
+  <xs:element name="cpeDeleteStaticRouteIPv6Response" type="tns:cpeDeleteStaticRouteIPv6Response"/>
+  <xs:element name="cpeDeleteVR" type="tns:cpeDeleteVR"/>
+  <xs:element name="cpeDeleteVRResponse" type="tns:cpeDeleteVRResponse"/>
+  <xs:element name="cpeModifyVR" type="tns:cpeModifyVR"/>
+  <xs:element name="cpeModifyVRResponse" type="tns:cpeModifyVRResponse"/>
+  <xs:element name="cpeRFAudit" type="tns:cpeRFAudit"/>
+  <xs:element name="cpeRFAuditResponse" type="tns:cpeRFAuditResponse"/>
+  <xs:element name="cpeReleaseMac" type="tns:cpeReleaseMac"/>
+  <xs:element name="cpeReleaseMacResponse" type="tns:cpeReleaseMacResponse"/>
+  <xs:element name="createCPE" type="tns:createCPE"/>
+  <xs:element name="createCPEResponse" type="tns:createCPEResponse"/>
+  <xs:element name="deleteCPE" type="tns:deleteCPE"/>
+  <xs:element name="deleteCPEResponse" type="tns:deleteCPEResponse"/>
+  <xs:element name="getCPEContinuousStatus" type="tns:getCPEContinuousStatus"/>
+  <xs:element name="getCPEContinuousStatusResponse" type="tns:getCPEContinuousStatusResponse"/>
+  <xs:element name="getCPECustomerInformation" type="tns:getCPECustomerInformation"/>
+  <xs:element name="getCPECustomerInformationResponse" type="tns:getCPECustomerInformationResponse"/>
+  <xs:element name="getCPESelfTestResults" type="tns:getCPESelfTestResults"/>
+  <xs:element name="getCPESelfTestResultsResponse" type="tns:getCPESelfTestResultsResponse"/>
+  <xs:element name="getCPESelfTestStatus" type="tns:getCPESelfTestStatus"/>
+  <xs:element name="getCPESelfTestStatusResponse" type="tns:getCPESelfTestStatusResponse"/>
+  <xs:element name="getCPEStaticRouteIPv4" type="tns:getCPEStaticRouteIPv4"/>
+  <xs:element name="getCPEStaticRouteIPv4Response" type="tns:getCPEStaticRouteIPv4Response"/>
+  <xs:element name="getCPEStaticRouteIPv6" type="tns:getCPEStaticRouteIPv6"/>
+  <xs:element name="getCPEStaticRouteIPv6Response" type="tns:getCPEStaticRouteIPv6Response"/>
+  <xs:element name="getCPEbyID" type="tns:getCPEbyID"/>
+  <xs:element name="getCPEbyIDResponse" type="tns:getCPEbyIDResponse"/>
+  <xs:element name="getCPEbyMacAddress" type="tns:getCPEbyMacAddress"/>
+  <xs:element name="getCPEbyMacAddressResponse" type="tns:getCPEbyMacAddressResponse"/>
+  <xs:element name="getCPEpartNumber" type="tns:getCPEpartNumber"/>
+  <xs:element name="getCPEpartNumberResponse" type="tns:getCPEpartNumberResponse"/>
+  <xs:element name="getCPEs" type="tns:getCPEs"/>
+  <xs:element name="getCPEsByManagedGroup" type="tns:getCPEsByManagedGroup"/>
+  <xs:element name="getCPEsByManagedGroupResponse" type="tns:getCPEsByManagedGroupResponse"/>
+  <xs:element name="getCPEsResponse" type="tns:getCPEsResponse"/>
+  <xs:element name="mgMigrateCPE" type="tns:mgMigrateCPE"/>
+  <xs:element name="mgMigrateCPEResponse" type="tns:mgMigrateCPEResponse"/>
+  <xs:element name="modifyCPE" type="tns:modifyCPE"/>
+  <xs:element name="modifyCPEResponse" type="tns:modifyCPEResponse"/>
+  <xs:element name="neStatus" type="tns:neStatus"/>
+  <xs:element name="resetCPE" type="tns:resetCPE"/>
+  <xs:element name="resetCPEResponse" type="tns:resetCPEResponse"/>
+  <xs:element name="setCPECustomerInformation" type="tns:setCPECustomerInformation"/>
+  <xs:element name="setCPECustomerInformationResponse" type="tns:setCPECustomerInformationResponse"/>
+  <xs:element name="setCPEpartNumber" type="tns:setCPEpartNumber"/>
+  <xs:element name="setCPEpartNumberResponse" type="tns:setCPEpartNumberResponse"/>
+  <xs:element name="setCPEtoBurst" type="tns:setCPEtoBurst"/>
+  <xs:element name="setCPEtoBurstResponse" type="tns:setCPEtoBurstResponse"/>
+  <xs:element name="setCPEtoContinuous" type="tns:setCPEtoContinuous"/>
+  <xs:element name="setCPEtoContinuousResponse" type="tns:setCPEtoContinuousResponse"/>
+  <xs:element name="startCPEAdvancedSelfTest" type="tns:startCPEAdvancedSelfTest"/>
+  <xs:element name="startCPEAdvancedSelfTestResponse" type="tns:startCPEAdvancedSelfTestResponse"/>
+  <xs:element name="stopCPEAdvancedSelfTest" type="tns:stopCPEAdvancedSelfTest"/>
+  <xs:element name="stopCPEAdvancedSelfTestResponse" type="tns:stopCPEAdvancedSelfTestResponse"/>
+  <xs:element name="vsatTransmissionMode" type="tns:vsatTransmissionMode"/>
+  <xs:complexType name="getCPEContinuousStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPEContinuousStatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:ContinuousTelemetry"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="startCPEAdvancedSelfTest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+      <xs:element minOccurs="0" name="ftpTest" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="startCPEAdvancedSelfTestResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:SelfTestStatus"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeDeleteBHfromVR">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element name="vlanIdToUpdate" type="xs:int"/>
+      <xs:element minOccurs="0" name="backhauling" type="ns1:Backhauling"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeDeleteBHfromVRResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="deleteCPE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="deleteCPEResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getCPEStaticRouteIPv6">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element name="vlanId" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPEStaticRouteIPv6Response">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="ns1:IPv6StaticRoute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setCPEtoBurst">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setCPEtoBurstResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getCPEpartNumber">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPEpartNumberResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:PartNumber"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPEbyMacAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="macAddress" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPEbyMacAddressResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:CPE"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mgMigrateCPE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sourceCPEId" type="ns1:CPEId"/>
+      <xs:element minOccurs="0" name="destinationCPEId" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mgMigrateCPEResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getCPEs">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sampleCPE" type="ns1:CPE"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPEsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="ns1:CPE"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="stopCPEAdvancedSelfTest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="stopCPEAdvancedSelfTestResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="cpeAddBHtoVR">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element name="vlanIdToUpdate" type="xs:int"/>
+      <xs:element minOccurs="0" name="backhauling" type="ns1:Backhauling"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeAddBHtoVRResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="resetCPE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="resetCPEResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="createCPE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpe" type="ns1:CPE"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="createCPEResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getCPEsByManagedGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="managedGroupId" type="xs:int"/>
+      <xs:element minOccurs="0" name="lastIndex" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPEsByManagedGroupResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:CPEsBulk"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeDeleteVR">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element minOccurs="0" name="vr" type="ns1:VR"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeDeleteVRResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getCPECustomerInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPECustomerInformationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:CustomerInformation"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeModifyVR">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element name="vlanIdToUpdate" type="xs:int"/>
+      <xs:element minOccurs="0" name="vr" type="ns1:VR"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeModifyVRResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="changeCPEFwdTpLicense">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+      <xs:element minOccurs="0" name="fwdTpLicense" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="changeCPEFwdTpLicenseResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getCPESelfTestStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPESelfTestStatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:SelfTestStatus"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setCPEpartNumber">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+      <xs:element name="partNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="password" type="xs:string"/>
+      <xs:element minOccurs="0" name="confirmPassword" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setCPEpartNumberResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="cpeDeleteStaticRouteIPv4">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element name="vlanId" type="xs:int"/>
+      <xs:element minOccurs="0" name="IPv4StaticRoute" type="ns1:IPv4StaticRoute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeDeleteStaticRouteIPv4Response">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="changeCPEScpcTpLicense">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+      <xs:element minOccurs="0" name="scpcTpLicense" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="changeCPEScpcTpLicenseResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="cpeDeleteStaticRouteIPv6">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element name="vlanId" type="xs:int"/>
+      <xs:element minOccurs="0" name="IPv6StaticRoute" type="ns1:IPv6StaticRoute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeDeleteStaticRouteIPv6Response">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getCPESelfTestResults">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPESelfTestResultsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:AdvancedSelfTestResults"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeAddStaticRouteIPv4">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element name="vlanId" type="xs:int"/>
+      <xs:element minOccurs="0" name="IPv4StaticRoute" type="ns1:IPv4StaticRoute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeAddStaticRouteIPv4Response">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="cpeRFAudit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeRFAuditResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="setCPEtoContinuous">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setCPEtoContinuousResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="setCPECustomerInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="customerInformation" type="ns1:CustomerInformation"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setCPECustomerInformationResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getCPEbyID">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPEbyIDResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:CPE"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeReleaseMac">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="ns1:CPEId"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeReleaseMacResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getCPEStaticRouteIPv4">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element name="vlanId" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCPEStaticRouteIPv4Response">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="ns1:IPv4StaticRoute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeAddVR">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element minOccurs="0" name="vr" type="ns1:VR"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeAddVRResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="modifyCPE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpe" type="ns1:CPE"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="modifyCPEResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="cpeAddStaticRouteIPv6">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cpeId" type="ns1:CPEId"/>
+      <xs:element name="vlanId" type="xs:int"/>
+      <xs:element minOccurs="0" name="IPv6StaticRoute" type="ns1:IPv6StaticRoute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cpeAddStaticRouteIPv6Response">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:simpleType name="neStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Online"/>
+      <xs:enumeration value="Offline"/>
+      <xs:enumeration value="Unknown"/>
+      <xs:enumeration value="PreProvision"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="vsatTransmissionMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNKNOWN"/>
+      <xs:enumeration value="CONTINUOUS"/>
+      <xs:enumeration value="BURST"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="mgMigrationState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NA"/>
+      <xs:enumeration value="MIGRATION_STARTED"/>
+      <xs:enumeration value="IN_MIGRATION"/>
+      <xs:enumeration value="ROLLBACK"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="mgMigrationRole">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NA"/>
+      <xs:enumeration value="SOURCE"/>
+      <xs:enumeration value="DESTINATION"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="NgnmsBusinessFaultException" nillable="true" type="ns0:NgnmsBusinessFaultDetails"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getCPEContinuousStatus">
+    <wsdl:part element="tns:getCPEContinuousStatus" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="NgnmsBusinessFaultException">
+    <wsdl:part element="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mgMigrateCPEResponse">
+    <wsdl:part element="tns:mgMigrateCPEResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEStaticRouteIPv6">
+    <wsdl:part element="tns:getCPEStaticRouteIPv6" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setCPEtoBurst">
+    <wsdl:part element="tns:setCPEtoBurst" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPECustomerInformationResponse">
+    <wsdl:part element="tns:getCPECustomerInformationResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setCPEtoContinuousResponse">
+    <wsdl:part element="tns:setCPEtoContinuousResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mgMigrateCPE">
+    <wsdl:part element="tns:mgMigrateCPE" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEs">
+    <wsdl:part element="tns:getCPEs" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeModifyVRResponse">
+    <wsdl:part element="tns:cpeModifyVRResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeAddBHtoVR">
+    <wsdl:part element="tns:cpeAddBHtoVR" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPESelfTestStatusResponse">
+    <wsdl:part element="tns:getCPESelfTestStatusResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeDeleteVR">
+    <wsdl:part element="tns:cpeDeleteVR" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPECustomerInformation">
+    <wsdl:part element="tns:getCPECustomerInformation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeModifyVR">
+    <wsdl:part element="tns:cpeModifyVR" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPESelfTestStatus">
+    <wsdl:part element="tns:getCPESelfTestStatus" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEStaticRouteIPv6Response">
+    <wsdl:part element="tns:getCPEStaticRouteIPv6Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setCPEpartNumber">
+    <wsdl:part element="tns:setCPEpartNumber" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeAddBHtoVRResponse">
+    <wsdl:part element="tns:cpeAddBHtoVRResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEbyMacAddressResponse">
+    <wsdl:part element="tns:getCPEbyMacAddressResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeDeleteStaticRouteIPv4">
+    <wsdl:part element="tns:cpeDeleteStaticRouteIPv4" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeDeleteStaticRouteIPv6">
+    <wsdl:part element="tns:cpeDeleteStaticRouteIPv6" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPESelfTestResults">
+    <wsdl:part element="tns:getCPESelfTestResults" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setCPEtoContinuous">
+    <wsdl:part element="tns:setCPEtoContinuous" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeReleaseMac">
+    <wsdl:part element="tns:cpeReleaseMac" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetCPEResponse">
+    <wsdl:part element="tns:resetCPEResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeCPEScpcTpLicenseResponse">
+    <wsdl:part element="tns:changeCPEScpcTpLicenseResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEContinuousStatusResponse">
+    <wsdl:part element="tns:getCPEContinuousStatusResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="stopCPEAdvancedSelfTestResponse">
+    <wsdl:part element="tns:stopCPEAdvancedSelfTestResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEStaticRouteIPv4">
+    <wsdl:part element="tns:getCPEStaticRouteIPv4" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEsByManagedGroupResponse">
+    <wsdl:part element="tns:getCPEsByManagedGroupResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeAddVR">
+    <wsdl:part element="tns:cpeAddVR" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEsResponse">
+    <wsdl:part element="tns:getCPEsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="startCPEAdvancedSelfTest">
+    <wsdl:part element="tns:startCPEAdvancedSelfTest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeDeleteBHfromVR">
+    <wsdl:part element="tns:cpeDeleteBHfromVR" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeDeleteVRResponse">
+    <wsdl:part element="tns:cpeDeleteVRResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteCPEResponse">
+    <wsdl:part element="tns:deleteCPEResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeDeleteBHfromVRResponse">
+    <wsdl:part element="tns:cpeDeleteBHfromVRResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteCPE">
+    <wsdl:part element="tns:deleteCPE" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="startCPEAdvancedSelfTestResponse">
+    <wsdl:part element="tns:startCPEAdvancedSelfTestResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEpartNumber">
+    <wsdl:part element="tns:getCPEpartNumber" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setCPEtoBurstResponse">
+    <wsdl:part element="tns:setCPEtoBurstResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEbyMacAddress">
+    <wsdl:part element="tns:getCPEbyMacAddress" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="modifyCPEResponse">
+    <wsdl:part element="tns:modifyCPEResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeRFAuditResponse">
+    <wsdl:part element="tns:cpeRFAuditResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPESelfTestResultsResponse">
+    <wsdl:part element="tns:getCPESelfTestResultsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEStaticRouteIPv4Response">
+    <wsdl:part element="tns:getCPEStaticRouteIPv4Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="stopCPEAdvancedSelfTest">
+    <wsdl:part element="tns:stopCPEAdvancedSelfTest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetCPE">
+    <wsdl:part element="tns:resetCPE" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createCPE">
+    <wsdl:part element="tns:createCPE" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEsByManagedGroup">
+    <wsdl:part element="tns:getCPEsByManagedGroup" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEbyIDResponse">
+    <wsdl:part element="tns:getCPEbyIDResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEpartNumberResponse">
+    <wsdl:part element="tns:getCPEpartNumberResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeCPEFwdTpLicense">
+    <wsdl:part element="tns:changeCPEFwdTpLicense" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeCPEFwdTpLicenseResponse">
+    <wsdl:part element="tns:changeCPEFwdTpLicenseResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeCPEScpcTpLicense">
+    <wsdl:part element="tns:changeCPEScpcTpLicense" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createCPEResponse">
+    <wsdl:part element="tns:createCPEResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeAddStaticRouteIPv4">
+    <wsdl:part element="tns:cpeAddStaticRouteIPv4" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeRFAudit">
+    <wsdl:part element="tns:cpeRFAudit" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeDeleteStaticRouteIPv4Response">
+    <wsdl:part element="tns:cpeDeleteStaticRouteIPv4Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setCPECustomerInformation">
+    <wsdl:part element="tns:setCPECustomerInformation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCPEbyID">
+    <wsdl:part element="tns:getCPEbyID" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeDeleteStaticRouteIPv6Response">
+    <wsdl:part element="tns:cpeDeleteStaticRouteIPv6Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeAddStaticRouteIPv6Response">
+    <wsdl:part element="tns:cpeAddStaticRouteIPv6Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setCPEpartNumberResponse">
+    <wsdl:part element="tns:setCPEpartNumberResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setCPECustomerInformationResponse">
+    <wsdl:part element="tns:setCPECustomerInformationResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeReleaseMacResponse">
+    <wsdl:part element="tns:cpeReleaseMacResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeAddVRResponse">
+    <wsdl:part element="tns:cpeAddVRResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="modifyCPE">
+    <wsdl:part element="tns:modifyCPE" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeAddStaticRouteIPv6">
+    <wsdl:part element="tns:cpeAddStaticRouteIPv6" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cpeAddStaticRouteIPv4Response">
+    <wsdl:part element="tns:cpeAddStaticRouteIPv4Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CPEWebService">
+    <wsdl:operation name="getCPEContinuousStatus">
+      <wsdl:input message="tns:getCPEContinuousStatus" name="getCPEContinuousStatus">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPEContinuousStatusResponse" name="getCPEContinuousStatusResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="startCPEAdvancedSelfTest">
+      <wsdl:input message="tns:startCPEAdvancedSelfTest" name="startCPEAdvancedSelfTest">
+    </wsdl:input>
+      <wsdl:output message="tns:startCPEAdvancedSelfTestResponse" name="startCPEAdvancedSelfTestResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeDeleteBHfromVR">
+      <wsdl:input message="tns:cpeDeleteBHfromVR" name="cpeDeleteBHfromVR">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeDeleteBHfromVRResponse" name="cpeDeleteBHfromVRResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="deleteCPE">
+      <wsdl:input message="tns:deleteCPE" name="deleteCPE">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteCPEResponse" name="deleteCPEResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEStaticRouteIPv6">
+      <wsdl:input message="tns:getCPEStaticRouteIPv6" name="getCPEStaticRouteIPv6">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPEStaticRouteIPv6Response" name="getCPEStaticRouteIPv6Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setCPEtoBurst">
+      <wsdl:input message="tns:setCPEtoBurst" name="setCPEtoBurst">
+    </wsdl:input>
+      <wsdl:output message="tns:setCPEtoBurstResponse" name="setCPEtoBurstResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEpartNumber">
+      <wsdl:input message="tns:getCPEpartNumber" name="getCPEpartNumber">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPEpartNumberResponse" name="getCPEpartNumberResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEbyMacAddress">
+      <wsdl:input message="tns:getCPEbyMacAddress" name="getCPEbyMacAddress">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPEbyMacAddressResponse" name="getCPEbyMacAddressResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="mgMigrateCPE">
+      <wsdl:input message="tns:mgMigrateCPE" name="mgMigrateCPE">
+    </wsdl:input>
+      <wsdl:output message="tns:mgMigrateCPEResponse" name="mgMigrateCPEResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEs">
+      <wsdl:input message="tns:getCPEs" name="getCPEs">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPEsResponse" name="getCPEsResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="stopCPEAdvancedSelfTest">
+      <wsdl:input message="tns:stopCPEAdvancedSelfTest" name="stopCPEAdvancedSelfTest">
+    </wsdl:input>
+      <wsdl:output message="tns:stopCPEAdvancedSelfTestResponse" name="stopCPEAdvancedSelfTestResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeAddBHtoVR">
+      <wsdl:input message="tns:cpeAddBHtoVR" name="cpeAddBHtoVR">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeAddBHtoVRResponse" name="cpeAddBHtoVRResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="resetCPE">
+      <wsdl:input message="tns:resetCPE" name="resetCPE">
+    </wsdl:input>
+      <wsdl:output message="tns:resetCPEResponse" name="resetCPEResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="createCPE">
+      <wsdl:input message="tns:createCPE" name="createCPE">
+    </wsdl:input>
+      <wsdl:output message="tns:createCPEResponse" name="createCPEResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEsByManagedGroup">
+      <wsdl:input message="tns:getCPEsByManagedGroup" name="getCPEsByManagedGroup">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPEsByManagedGroupResponse" name="getCPEsByManagedGroupResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeDeleteVR">
+      <wsdl:input message="tns:cpeDeleteVR" name="cpeDeleteVR">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeDeleteVRResponse" name="cpeDeleteVRResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPECustomerInformation">
+      <wsdl:input message="tns:getCPECustomerInformation" name="getCPECustomerInformation">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPECustomerInformationResponse" name="getCPECustomerInformationResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeModifyVR">
+      <wsdl:input message="tns:cpeModifyVR" name="cpeModifyVR">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeModifyVRResponse" name="cpeModifyVRResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="changeCPEFwdTpLicense">
+      <wsdl:input message="tns:changeCPEFwdTpLicense" name="changeCPEFwdTpLicense">
+    </wsdl:input>
+      <wsdl:output message="tns:changeCPEFwdTpLicenseResponse" name="changeCPEFwdTpLicenseResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPESelfTestStatus">
+      <wsdl:input message="tns:getCPESelfTestStatus" name="getCPESelfTestStatus">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPESelfTestStatusResponse" name="getCPESelfTestStatusResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setCPEpartNumber">
+      <wsdl:input message="tns:setCPEpartNumber" name="setCPEpartNumber">
+    </wsdl:input>
+      <wsdl:output message="tns:setCPEpartNumberResponse" name="setCPEpartNumberResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeDeleteStaticRouteIPv4">
+      <wsdl:input message="tns:cpeDeleteStaticRouteIPv4" name="cpeDeleteStaticRouteIPv4">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeDeleteStaticRouteIPv4Response" name="cpeDeleteStaticRouteIPv4Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="changeCPEScpcTpLicense">
+      <wsdl:input message="tns:changeCPEScpcTpLicense" name="changeCPEScpcTpLicense">
+    </wsdl:input>
+      <wsdl:output message="tns:changeCPEScpcTpLicenseResponse" name="changeCPEScpcTpLicenseResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeDeleteStaticRouteIPv6">
+      <wsdl:input message="tns:cpeDeleteStaticRouteIPv6" name="cpeDeleteStaticRouteIPv6">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeDeleteStaticRouteIPv6Response" name="cpeDeleteStaticRouteIPv6Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPESelfTestResults">
+      <wsdl:input message="tns:getCPESelfTestResults" name="getCPESelfTestResults">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPESelfTestResultsResponse" name="getCPESelfTestResultsResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeAddStaticRouteIPv4">
+      <wsdl:input message="tns:cpeAddStaticRouteIPv4" name="cpeAddStaticRouteIPv4">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeAddStaticRouteIPv4Response" name="cpeAddStaticRouteIPv4Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeRFAudit">
+      <wsdl:input message="tns:cpeRFAudit" name="cpeRFAudit">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeRFAuditResponse" name="cpeRFAuditResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setCPEtoContinuous">
+      <wsdl:input message="tns:setCPEtoContinuous" name="setCPEtoContinuous">
+    </wsdl:input>
+      <wsdl:output message="tns:setCPEtoContinuousResponse" name="setCPEtoContinuousResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setCPECustomerInformation">
+      <wsdl:input message="tns:setCPECustomerInformation" name="setCPECustomerInformation">
+    </wsdl:input>
+      <wsdl:output message="tns:setCPECustomerInformationResponse" name="setCPECustomerInformationResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEbyID">
+      <wsdl:input message="tns:getCPEbyID" name="getCPEbyID">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPEbyIDResponse" name="getCPEbyIDResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeReleaseMac">
+      <wsdl:input message="tns:cpeReleaseMac" name="cpeReleaseMac">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeReleaseMacResponse" name="cpeReleaseMacResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEStaticRouteIPv4">
+      <wsdl:input message="tns:getCPEStaticRouteIPv4" name="getCPEStaticRouteIPv4">
+    </wsdl:input>
+      <wsdl:output message="tns:getCPEStaticRouteIPv4Response" name="getCPEStaticRouteIPv4Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeAddVR">
+      <wsdl:input message="tns:cpeAddVR" name="cpeAddVR">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeAddVRResponse" name="cpeAddVRResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="modifyCPE">
+      <wsdl:input message="tns:modifyCPE" name="modifyCPE">
+    </wsdl:input>
+      <wsdl:output message="tns:modifyCPEResponse" name="modifyCPEResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeAddStaticRouteIPv6">
+      <wsdl:input message="tns:cpeAddStaticRouteIPv6" name="cpeAddStaticRouteIPv6">
+    </wsdl:input>
+      <wsdl:output message="tns:cpeAddStaticRouteIPv6Response" name="cpeAddStaticRouteIPv6Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:NgnmsBusinessFaultException" name="NgnmsBusinessFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CPEServiceSoapBinding" type="tns:CPEWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="startCPEAdvancedSelfTest">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#startCPEAdvancedSelfTest" style="document"/>
+      <wsdl:input name="startCPEAdvancedSelfTest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="startCPEAdvancedSelfTestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEContinuousStatus">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPEContinuousStatus" style="document"/>
+      <wsdl:input name="getCPEContinuousStatus">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPEContinuousStatusResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeDeleteBHfromVR">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeDeleteBHfromVR" style="document"/>
+      <wsdl:input name="cpeDeleteBHfromVR">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeDeleteBHfromVRResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEStaticRouteIPv6">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPEStaticRouteIPv6" style="document"/>
+      <wsdl:input name="getCPEStaticRouteIPv6">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPEStaticRouteIPv6Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="deleteCPE">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#deleteCPE" style="document"/>
+      <wsdl:input name="deleteCPE">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteCPEResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setCPEtoBurst">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#setCPEtoBurst" style="document"/>
+      <wsdl:input name="setCPEtoBurst">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setCPEtoBurstResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEpartNumber">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPEpartNumber" style="document"/>
+      <wsdl:input name="getCPEpartNumber">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPEpartNumberResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEbyMacAddress">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPEbyMacAddress" style="document"/>
+      <wsdl:input name="getCPEbyMacAddress">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPEbyMacAddressResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="mgMigrateCPE">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#mgMigrateCPE" style="document"/>
+      <wsdl:input name="mgMigrateCPE">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="mgMigrateCPEResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEs">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPEs" style="document"/>
+      <wsdl:input name="getCPEs">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPEsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="stopCPEAdvancedSelfTest">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#stopCPEAdvancedSelfTest" style="document"/>
+      <wsdl:input name="stopCPEAdvancedSelfTest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="stopCPEAdvancedSelfTestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeAddBHtoVR">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeAddBHtoVR" style="document"/>
+      <wsdl:input name="cpeAddBHtoVR">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeAddBHtoVRResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="resetCPE">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#resetCPE" style="document"/>
+      <wsdl:input name="resetCPE">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="resetCPEResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="createCPE">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#createCPE" style="document"/>
+      <wsdl:input name="createCPE">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createCPEResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEsByManagedGroup">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPEsByManagedGroup" style="document"/>
+      <wsdl:input name="getCPEsByManagedGroup">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPEsByManagedGroupResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeDeleteVR">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeDeleteVR" style="document"/>
+      <wsdl:input name="cpeDeleteVR">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeDeleteVRResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPECustomerInformation">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPECustomerInformation" style="document"/>
+      <wsdl:input name="getCPECustomerInformation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPECustomerInformationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeModifyVR">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeModifyVR" style="document"/>
+      <wsdl:input name="cpeModifyVR">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeModifyVRResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="changeCPEFwdTpLicense">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#changeCPEFwdTpLicense" style="document"/>
+      <wsdl:input name="changeCPEFwdTpLicense">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="changeCPEFwdTpLicenseResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPESelfTestStatus">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPESelfTestStatus" style="document"/>
+      <wsdl:input name="getCPESelfTestStatus">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPESelfTestStatusResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setCPEpartNumber">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#setCPEpartNumber" style="document"/>
+      <wsdl:input name="setCPEpartNumber">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setCPEpartNumberResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeDeleteStaticRouteIPv4">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeDeleteStaticRouteIPv4" style="document"/>
+      <wsdl:input name="cpeDeleteStaticRouteIPv4">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeDeleteStaticRouteIPv4Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="changeCPEScpcTpLicense">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#changeCPEScpcTpLicense" style="document"/>
+      <wsdl:input name="changeCPEScpcTpLicense">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="changeCPEScpcTpLicenseResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeDeleteStaticRouteIPv6">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeDeleteStaticRouteIPv6" style="document"/>
+      <wsdl:input name="cpeDeleteStaticRouteIPv6">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeDeleteStaticRouteIPv6Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPESelfTestResults">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPESelfTestResults" style="document"/>
+      <wsdl:input name="getCPESelfTestResults">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPESelfTestResultsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeAddStaticRouteIPv4">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeAddStaticRouteIPv4" style="document"/>
+      <wsdl:input name="cpeAddStaticRouteIPv4">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeAddStaticRouteIPv4Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeRFAudit">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeRFAudit" style="document"/>
+      <wsdl:input name="cpeRFAudit">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeRFAuditResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setCPEtoContinuous">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#setCPEtoContinuous" style="document"/>
+      <wsdl:input name="setCPEtoContinuous">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setCPEtoContinuousResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setCPECustomerInformation">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#setCPECustomerInformation" style="document"/>
+      <wsdl:input name="setCPECustomerInformation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setCPECustomerInformationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEbyID">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPEbyID" style="document"/>
+      <wsdl:input name="getCPEbyID">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPEbyIDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeReleaseMac">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeReleaseMac" style="document"/>
+      <wsdl:input name="cpeReleaseMac">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeReleaseMacResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCPEStaticRouteIPv4">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#getCPEStaticRouteIPv4" style="document"/>
+      <wsdl:input name="getCPEStaticRouteIPv4">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCPEStaticRouteIPv4Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeAddVR">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeAddVR" style="document"/>
+      <wsdl:input name="cpeAddVR">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeAddVRResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="modifyCPE">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#modifyCPE" style="document"/>
+      <wsdl:input name="modifyCPE">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="modifyCPEResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cpeAddStaticRouteIPv6">
+      <soap:operation soapAction="com.gilat.ngnms.server.services.ws.cfg.face#cpeAddStaticRouteIPv6" style="document"/>
+      <wsdl:input name="cpeAddStaticRouteIPv6">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cpeAddStaticRouteIPv6Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NgnmsBusinessFaultException">
+        <soap:fault name="NgnmsBusinessFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CPEService">
+    <wsdl:port binding="tns:CPEServiceSoapBinding" name="CPEServicePort">
+      <soap:address location="http://172.18.255.10/ws/cpeService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
