@@ -17,6 +17,10 @@ class NbiFunction(object):
     add_fail=0
     rt_succ=0
     rt_fail=0
+    add_succ_l=[]
+    add_fail_l=[]
+    rt_succ_l=[]
+    rt_fail_l=[]
 
     def __init__(self):
         self.nbi_session = requests.Session()
@@ -27,8 +31,10 @@ class NbiFunction(object):
         try:
             response = self.client.service.createCPE(**cpeq)
             self.add_succ+=1
+            self.add_succ_l.append(cpeq['cpe']['cpeId']['subscriberId'])
         except exceptions.Fault as error:
-            self.add_succ+=1
+            self.add_fail+=1
+            self.add_fail_l.append(cpeq['cpe']['cpeId']['subscriberId'])
             print(ValueError(error.message))
 
 
@@ -36,8 +42,10 @@ class NbiFunction(object):
         try:
             response = self.client.service.cpeAddStaticRouteIPv4(**cpe_rtq)
             self.rt_succ+=1
+            self.rt_succ_l.append(cpe_rtq['cpeId']['subscriberId'])
         except exceptions.Fault as error:
-            self.rt_faul+=1
+            self.rt_fail+=1
+            self.rt_fail_l.append(cpe_rtq['cpeId']['subscriberId'])
             print(ValueError(error.message))
 
     def showCPE(self, CPEID):
@@ -73,7 +81,7 @@ def main():
     vsat_obj = NbiFunction()
     with open('vsats.csv', 'r') as m:
         cpe_cfg = m.read()
-    print (cpe_cfg.splitlines()[0].split(','))
+
     for i in cpe_cfg.splitlines():
         now = datetime.datetime.now()
         cpe = i.split(',')
@@ -84,19 +92,20 @@ def main():
         cpes['cpe']['vrs']['VR'][0]['ipv4']['subscriberPublicIpAddress']=cpe[4]
         cpes['cpe']['vrs']['VR'][0]['ipv4']['ipv4Prefix']=cpe[5]
         cpes['cpe']['vrs']['VR'][0]['backhaulings']['Backhauling'][0]['name'] = cpe[6]
-    #    print (dict(cpes))
+        print ('\n{:10}: CPE:  {:10}'.format(now.strftime("%Y-%m-%d %H:%M"), cpe[1]))
         vsat_obj.createCpe(cpes)
-        print ('{}: CPE: {} : created'.format(now.strftime("%Y-%m-%d %H:%M"), cpe[1]))
         time.sleep(1)
+
         cpe_rt['cpeId']['managedGroupId'] = cpe[0]
         cpe_rt['cpeId']['subscriberId'] = cpe[1]
         cpe_rt['vlanId'] = cpe[3]
         cpe_rt['IPv4StaticRoute']['network'] = cpe[7]
         cpe_rt['IPv4StaticRoute']['subnetMask'] = cpe[8]
         cpe_rt['IPv4StaticRoute']['nextHop'] = cpe[9]
+        print ('{:5}ROUTE: {:7} : < {} : {} : {} >'.format('--->', cpe[1], cpe[7], cpe[8], cpe[9]))
         vsat_obj.addRoute(cpe_rt)
-        print ('{}:   ROUTE: {} : created'.format(now.strftime("%Y-%m-%d %H:%M"), cpe[1]))
         time.sleep(1)
-    print ('\nCPEs:\n\tSUCCESS: {}\n\tFAILURE: {}\nROUTE:\n\tSUCCESS: {}\n\tFAILURE: {}'.format(vsat_obj.add_succ,vsat_obj.add_fail,vsat_obj.rt_succ,vsat_obj.rt_fail))
+
+    print ('\nCPEs:\n\tSUCCESS: {}\n\tFAILURE: {} -> {}\nROUTE:\n\tSUCCESS: {}\n\tFAILURE: {} -> {}'.format(vsat_obj.add_succ,vsat_obj.add_fail,vsat_obj.add_fail_l,vsat_obj.rt_succ,vsat_obj.rt_fail,vsat_obj.rt_fail_l))
 if __name__ == '__main__':
     main()
