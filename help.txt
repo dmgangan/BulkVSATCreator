@@ -1,0 +1,36 @@
+Script is using python3.6
+
+0. Install python3.6
+
+1. Before using ensure that you also have installed requests and zeep module.
+   To install it run in command line: 	pip install requests
+					pip install zeep
+
+2. Put WSDL file (cpeService.xml) to script folder 
+	File can be downloaded from NMS: ex. 172.18.255.10/ws/
+
+3. Ensure that NMS has NBI license
+
+4. Complete .csv table (e.g in Excell) with needed data of VSATs that you are going to create (may leave empty BH name, and fields related to IP route, customer info if you are not going to use it)
+	Check picture vsat_csv_example.jpg for reference
+
+5. Save .csv
+
+6. Browse in command line to sctipt folder and run it as: python run.py
+				In case you are using Backhauling: 		use also option -b or --backhauling
+				In case you are configuring also IP route: 	use also option -r ot --route
+				In case you are inserting Customer info: 	use also option -i or --info
+
+Example:
+
+	Creating CPE, assigning backhauling profile and adding IP route:
+		python app.py -b -r --info 
+
+	Creating CPE and assigning backhauling profile (no route/customer information):
+		python app.py -b
+
+File vsat.json is used as a templete to create request to NMS
+If you need to put some parameters that is not present in vsats.csv and is common to all the VSATs you are going to create - modify needed parameter in vsat.json
+Please ensure that you put it in right format (SkyEdgeII-c NBI(SOAP)forTotalNMS in v4.1.pdf may help here)
+
+In case you need to use another user/pass to access NMS: change it in params.py file

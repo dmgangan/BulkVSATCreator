@@ -1,16 +1,12 @@
 from requests import Session
-import requests
-from requests.auth import HTTPBasicAuth  # or HTTPDigestAuth, or OAuth1, etc.
+import requests, ast, time, datetime, getopt, sys, params
+from requests.auth import HTTPBasicAuth
 from zeep import *
 from zeep.transports import Transport
-import ast
-import time
-import datetime
-
 
 class NbiFunction(object):
-    nbi_user='nbi'
-    nbi_password='$SatCom$'
+    nbi_user=params.nbi_user
+    nbi_password=params.nbi_pass
     clinet = None
     nbi_session = None
     add_succ=0
@@ -25,7 +21,7 @@ class NbiFunction(object):
     def __init__(self):
         self.nbi_session = requests.Session()
         self.nbi_session.auth = HTTPBasicAuth(self.nbi_user, self.nbi_password)
-        self.client = Client('cpeService.xml',transport=Transport(session=self.nbi_session))
+        self.client = Client(params.wsdl_filename,transport=Transport(session=self.nbi_session))
 
     def createCpe(self, cpeq):
         try:
@@ -54,32 +50,65 @@ class NbiFunction(object):
         except exceptions.Fault as error:
             print(ValueError(error.message))
         return response
-def main():
 
+    def CPEdesc(self, CPEdesc):
+        try:
+            response = self.client.service.setCPECustomerInformation(**CPEdesc)
+        except exceptions.Fault as error:
+            print(ValueError(error.message))
+
+
+def opts(argv):
+    backhaul = False
+    info = False
+    route = False
+    opts, args = getopt.getopt(argv, 'bir',['route','info','backhauling'])
+    for opt, arg in opts:
+        if opt in ('-b','--backhauling'):
+            backhaul = True
+        if opt in ('-i','--info'):
+            info = True
+        if opt in ('-r','--route'):
+            route = True
+    return {'backhaul':backhaul,'info':info,'route':route}
+
+def cpe_add(options):
     cpe_rt= {'cpeId': {
-                    'managedGroupId': 2,
-                    'subscriberId': 123456789},
-                    'vlanId': '24',
+                    'managedGroupId': None,
+                    'subscriberId': None},
+                    'vlanId': None,
                     'IPv4StaticRoute': {
-                    'network': '8.8.8.8',
-                    'subnetMask': '255.255.255.255',
-                    'nextHop': '10.10.10.10',
+                    'network': None,
+                    'subnetMask': None,
+                    'nextHop': None,
                     'ipV4Interface': 'LAN',
                     'redistribute': 'RIPv2',
-                    'distributedMetric': '1',
-                    }
-            }
-    cpe_id = {
-        'id': {
-            'managedGroupId': 2,
-            'subscriberId': 1002,
-        }}
+                    'distributedMetric': '1',}}
 
-    with open('vsat.json', 'r') as f:
+    cpe_id = {'id': {
+                'managedGroupId': None,
+                'subscriberId': None,}}
+
+    cpe_desc = {'customerInformation' : {
+            'cpeId': {
+                'managedGroupId': None,
+                'subscriberId': None},
+                'cpeDescription': None,
+                'companyName': None}}
+
+    bch = {'Backhauling': [
+                {
+                'name': None,
+                'cpeSideIPAddressSource': 'PROFILE',
+                'cpeSideIPAddressValue': None}]}
+
+    vsat_obj = NbiFunction()
+
+    with open(params.req_template_name, 'r') as f:
         cpe_str = f.read()
     cpes = ast.literal_eval(cpe_str)
-    vsat_obj = NbiFunction()
-    with open('vsats.csv', 'r') as m:
+
+    with open(params.vsat_table_name, 'r') as m:
         cpe_cfg = m.read()
 
     for i in cpe_cfg.splitlines():
@@ -87,25 +116,56 @@ def main():
         cpe = i.split(',')
         cpes['cpe']['cpeId']['managedGroupId'] = cpe[0]
         cpes['cpe']['cpeId']['subscriberId'] = cpe[1]
-        cpes['cpe']['description'] = cpe[2]
-        cpes['cpe']['vrs']['VR'][0]['vlanId'] = cpe[3]
-        cpes['cpe']['vrs']['VR'][0]['ipv4']['subscriberPublicIpAddress']=cpe[4]
-        cpes['cpe']['vrs']['VR'][0]['ipv4']['ipv4Prefix']=cpe[5]
-        cpes['cpe']['vrs']['VR'][0]['backhaulings']['Backhauling'][0]['name'] = cpe[6]
-        print ('\n{:10}: CPE:  {:10}'.format(now.strftime("%Y-%m-%d %H:%M"), cpe[1]))
+        cpes['cpe']['clusterCode'] = cpe[2]
+        cpes['cpe']['platform'] = cpe[3]
+        cpes['cpe']['description'] = cpe[4]
+        cpes['cpe']['slaName'] = cpe[5]
+        cpes['cpe']['rtnClassifierName'] = cpe[6]
+        cpes['cpe']['vrs']['VR'][0]['vlanId'] = cpe[7]
+        cpes['cpe']['vrs']['VR'][0]['ipv4']['subscriberPublicIpAddress']=cpe[8]
+        cpes['cpe']['vrs']['VR'][0]['ipv4']['ipv4Prefix']=cpe[9]
+        if options['backhaul']:
+            bch['Backhauling'][0]['name'] = cpe[10]
+            cpes['cpe']['vrs']['VR'][0]['backhaulings'] = bch
+        print ('\n{:10}: CPE:  {:10}'.format(now.strftime("%H:%M:%S"), cpe[1]))
         vsat_obj.createCpe(cpes)
-        time.sleep(1)
+        time.sleep(0.1)
 
-        cpe_rt['cpeId']['managedGroupId'] = cpe[0]
-        cpe_rt['cpeId']['subscriberId'] = cpe[1]
-        cpe_rt['vlanId'] = cpe[3]
-        cpe_rt['IPv4StaticRoute']['network'] = cpe[7]
-        cpe_rt['IPv4StaticRoute']['subnetMask'] = cpe[8]
-        cpe_rt['IPv4StaticRoute']['nextHop'] = cpe[9]
-        print ('{:5}ROUTE: {:7} : < {} : {} : {} >'.format('--->', cpe[1], cpe[7], cpe[8], cpe[9]))
-        vsat_obj.addRoute(cpe_rt)
-        time.sleep(1)
+        if options['route']:
+            cpe_rt['cpeId']['managedGroupId'] = cpe[0]
+            cpe_rt['cpeId']['subscriberId'] = cpe[1]
+            cpe_rt['vlanId'] = cpe[7]
+            cpe_rt['IPv4StaticRoute']['network'] = cpe[11]
+            cpe_rt['IPv4StaticRoute']['subnetMask'] = cpe[12]
+            cpe_rt['IPv4StaticRoute']['nextHop'] = cpe[13]
+            print ('{:5}ROUTE: {:7} : < {} : {} : {} >'.format('--->', cpe[1], cpe[11], cpe[12], cpe[13]))
+            vsat_obj.addRoute(cpe_rt)
+            time.sleep(0.1)
+            
+        if options['info']:
+            cpe_desc['customerInformation']['cpeId']['managedGroupId'] = cpe[0]
+            cpe_desc['customerInformation']['cpeId']['subscriberId'] = cpe[1]
+            cpe_desc['customerInformation']['cpeDescription'] = cpe[14]
+            cpe_desc['customerInformation']['companyName'] = cpe[15]
+            print ('{:5}DESCR: {:7} : < {} : {} >'.format('--->', cpe[1], cpe[14], cpe[15]))
+            vsat_obj.CPEdesc(cpe_desc)
+            time.sleep(0.1)
 
-    print ('\nCPEs:\n\tSUCCESS: {}\n\tFAILURE: {} -> {}\nROUTE:\n\tSUCCESS: {}\n\tFAILURE: {} -> {}'.format(vsat_obj.add_succ,vsat_obj.add_fail,vsat_obj.add_fail_l,vsat_obj.rt_succ,vsat_obj.rt_fail,vsat_obj.rt_fail_l))
+    print ('\n\n{}\nCPEs:\n\tSUCCESS: {}\n\tFAILURE: {} -> {}'.format('-'*23,vsat_obj.add_succ,vsat_obj.add_fail,vsat_obj.add_fail_l))
+
+    if options['route']:
+        print('\nROUTE:\n\tSUCCESS: {}\n\tFAILURE: {} -> {}'.format(vsat_obj.rt_succ,vsat_obj.rt_fail,vsat_obj.rt_fail_l))
+
+
+def main():
+    ops = opts(sys.argv[1:])
+    print ('time: {}\noptions: {}\n'.format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),ops))
+    start = time.time()
+    cpe_add(ops)
+    end = time.time()
+    spent = end-start
+    print('\nSpent: {}'.format(spent))
+    input()
+
 if __name__ == '__main__':
     main()

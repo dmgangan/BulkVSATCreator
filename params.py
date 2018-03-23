@@ -1,0 +1,5 @@
+nbi_user = 'nbi'
+nbi_pass = '$SatCom$'
+wsdl_filename = 'cpeService.xml'
+req_template_name = 'vsat.json'
+vsat_table_name = 'vsats.csv'
